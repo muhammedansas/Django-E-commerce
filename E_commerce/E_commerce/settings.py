@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'products_category',
     'store',
     'cart',
+    'accounts',
     
 ]
 
@@ -74,6 +75,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'E_commerce.wsgi.application'
+
+AUTH_USER_MODEL = 'accounts.Account'
 
 
 # Database
