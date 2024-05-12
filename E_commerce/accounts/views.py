@@ -1,9 +1,50 @@
-from django.shortcuts import render
-from . forms import RegistrationForm
+from django.shortcuts import render,redirect,get_object_or_404
+from . forms import RegistrationForm,Userform,Userprofileform
+from . models import Account,Userprofile
+from django.contrib import messages,auth
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+
+#verification email
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import EmailMessage
 
 # Create your views here.
 
 def register(request):
+    form = None
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            phone_number = form.cleaned_data['phone_number']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            username = email.split("@")[0]
+            user = Account.objects.create_user(first_name=first_name,last_name=last_name,email=email,password=password,username=username)
+            user.phone_number=phone_number
+            user.save()
+
+            #User activation
+            current_site = get_current_site(request)
+            mail_subject = "Please activate your account"
+            message = render_to_string('accounts/verification_email.html',{
+                'user':user,
+                'domain':current_site,
+                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                'token':default_token_generator.make_token(user),
+            })
+            to_email = email
+            send_email = EmailMessage(mail_subject,message,to=[to_email])
+            send_email.send()
+
+            messages.success(request,"Registration successfull")
+            return redirect("register")   
     form = RegistrationForm()
     context = {
         'form':form
@@ -11,7 +52,68 @@ def register(request):
     return render(request,"accounts/register.html",context)
 
 def login(request):
+    if request.method == "POST":
+        email = request.POST["email"]
+        password = request.POST["password"]
+        print(email,password)
+        user = auth.authenticate(request,email=email,password=password)
+        print(user)
+        if user is not None:
+            auth.login(request,user)
+            # messages.success(request,"Your now Logged in")
+            return redirect('home')
+        else:
+            messages.error(request,"Invalid login")
+            return redirect("login")
     return render(request,"accounts/login.html")
 
+@login_required(login_url='login')
 def logout(request):
-    return
+    auth.logout(request)
+    messages.success(request, 'You are logged out')
+    return redirect('login')
+
+def activate(request,uidb64,token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = Account._default_manager.get(pk=uid)
+    except(TypeError,ValueError,OverflowError,Account.DoesNotExist):
+        user =None    
+    
+    if user is not None and default_token_generator.check_token(user,token):
+        user.is_active = True
+        user.save()
+        messages.success(request,'Congragulations your account is activated.')
+        return redirect('login')
+    else:
+        messages.error(request,"Invalid activation link")
+        return redirect('register')
+    
+
+@login_required(login_url='login')
+def edit_profile(request):
+    try:
+        user_profile = Userprofile.objects.get(user=request.user)
+    except Userprofile.DoesNotExist:
+        user_profile = None
+    
+    if request.method == "POST":
+        user_form = Userform(request.POST,instance=request.user)
+        profile_form = Userprofileform(request.POST,request.FILES,instance=user_profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request,'Your profile has been updated')
+            return redirect('edit_profile')
+    else:
+        user_form = Userform(instance=request.user)
+        profile_form = Userprofileform(instance=user_profile)
+    context = {
+        'user_form':user_form,
+        'profile_form':profile_form,
+        'user_profile':user_profile
+
+    }     
+    return render(request,'accounts/edit_profile.html',context)
+
+

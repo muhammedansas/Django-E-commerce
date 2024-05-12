@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from store.models import Product
 from . models import Cart,Cartitem
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -10,6 +11,7 @@ def cart_id(request):
         cart = request.session.create()          # if there is no session so this will create one
     return cart
 
+@login_required(login_url='login')
 def add_cart(request,product_id):
     product = Product.objects.get(id=product_id)  # to get the product
 
@@ -51,7 +53,8 @@ def remove_cart_item(request,product_id):
     return redirect('cart')  
 
 
-def cart(request,total=0,quantity=0,cart_items=None):
+@login_required(login_url='login')
+def cart(request,total=0,quantity=0,cart_items=None,):
     try:
         cart = Cart.objects.get(cart_id = cart_id(request))
         cart_items = Cartitem.objects.filter(cart=cart,is_active = True)
