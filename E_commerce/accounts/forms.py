@@ -1,5 +1,12 @@
 from django import forms
 from . models import Account,Userprofile
+import re
+from django.core.exceptions import ValidationError,FieldError
+from django.contrib.auth.password_validation import(
+    MinimumLengthValidator,
+    CommonPasswordValidator,
+    NumericPasswordValidator,
+)
 
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
@@ -30,6 +37,8 @@ class RegistrationForm(forms.ModelForm):
         model = Account
         fields = ['first_name','last_name','phone_number','email','password']
 
+
+ 
     def clean(self):
         cleaned_data = super(RegistrationForm,self).clean()
         password = cleaned_data.get('password')

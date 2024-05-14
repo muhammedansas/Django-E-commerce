@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def cart_id(request):
-    cart = request.session.session_key           # if there is a existing session so this will work
+    cart = request.session.session_key          # if there is a existing session so this will work
     if not cart:
         cart = request.session.create()          # if there is no session so this will create one
     return cart
@@ -55,6 +55,8 @@ def remove_cart_item(request,product_id):
 
 @login_required(login_url='login')
 def cart(request,total=0,quantity=0,cart_items=None,):
+    tax = None
+    grand_total = None
     try:
         cart = Cart.objects.get(cart_id = cart_id(request))
         cart_items = Cartitem.objects.filter(cart=cart,is_active = True)
@@ -64,6 +66,7 @@ def cart(request,total=0,quantity=0,cart_items=None,):
         tax = (2 * total)/100
         grand_total = total + tax    
     except:
+        print('its wrong')
         pass    # just ignore
 
     context = {

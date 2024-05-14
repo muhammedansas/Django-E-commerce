@@ -9,14 +9,8 @@ class catogary(models.Model):
     description = models.TextField(max_length=200,blank=True)
     catogary_image = models.ImageField(upload_to='images/catagory',blank=True)
 
-    # class Meta:
-    #     verbose_name = 'catogary'
-    #     verbose_name_plural = 'catogaries'
-
     def get_url(self):
         return reverse('products_by_catogary',args=[self.slug])
 
     def __str__(self) -> str:
         return self.catogary_name
-    
-    

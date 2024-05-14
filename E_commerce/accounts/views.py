@@ -100,6 +100,8 @@ def edit_profile(request):
     if request.method == "POST":
         user_form = Userform(request.POST,instance=request.user)
         profile_form = Userprofileform(request.POST,request.FILES,instance=user_profile)
+        print(user_form)
+        print(profile_form)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
