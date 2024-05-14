@@ -26,4 +26,4 @@ def product_detail(request,Product_slug):
     context = {
         'single_product':single_product,
     }    
-   
+    return render(request,"Home/single_product.html",context)
