@@ -17,7 +17,7 @@ def store(request,catogary_slug=None):
         product_count = products.count()
     return render(request,'Home/store.html',{'products':products,'count':product_count})
 
-def product_detail(request,Product_slug):
+def product_detail(request,catogary_slug,Product_slug):
     try:
         single_product = Product.objects.get(slug=Product_slug)
     except Exception as e:

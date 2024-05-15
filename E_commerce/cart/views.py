@@ -77,3 +77,6 @@ def cart(request,total=0,quantity=0,cart_items=None,):
         "grand_total" : grand_total
     }          
     return render(request,'Home/cart.html',context)
+
+def checkout(request):
+    return render(request,'Home/checkout.html')
