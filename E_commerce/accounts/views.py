@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from . forms import RegistrationForm,Userform,Userprofileform
 from . models import Account,Userprofile
+from cart.models import Cart,Cartitem
 from django.contrib import messages,auth
 from django.contrib.auth.decorators import login_required
+from cart.views import _cart_id
 from django.http import HttpResponse
 
 #verification email
@@ -59,6 +61,16 @@ def login(request):
         user = auth.authenticate(request,email=email,password=password)
         print(user)
         if user is not None:
+            try:
+                cart = Cart.objects.get(cart_id=_cart_id(request))
+                cartitem_exists = Cartitem.objects.filter(cart=cart).exists()
+                if cartitem_exists:
+                    cart_item = Cartitem.objects.filter(cart=cart)
+                    for item in cart_item:
+                        item.user = user
+                        item.save()
+            except:
+                pass    
             auth.login(request,user)
             # messages.success(request,"Your now Logged in")
             return redirect('home')
