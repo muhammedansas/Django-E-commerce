@@ -10,7 +10,8 @@ class Payment(models.Model):
     status = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    
+    def __str__(self):
+        return self.payment_id
 
 class Order(models.Model):
     STATUS = {
