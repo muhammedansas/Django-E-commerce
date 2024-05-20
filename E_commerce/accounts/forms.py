@@ -38,7 +38,7 @@ class RegistrationForm(forms.ModelForm):
         fields = ['first_name','last_name','phone_number','email','password']
 
 
- 
+
     def clean(self):
         cleaned_data = super(RegistrationForm,self).clean()
         password = cleaned_data.get('password')
