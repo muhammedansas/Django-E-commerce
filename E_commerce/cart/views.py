@@ -60,14 +60,13 @@ def cart(request,total=0,quantity=0,cart_items=None,):
     try:
         if request.user.is_authenticated:
             cart_items = Cartitem.objects.filter(user=request.user,is_active=True)
-            print(cart_items,"hoooooooi")
-        else:    
+            print(cart_items,"hoooooooi")   
             cart = Cart.objects.get(cart_id = _cart_id(request))
             cart_items = Cartitem.objects.filter(cart=cart,is_active = True)
             print("its else case")
         for items in cart_items:
             total += (items.product.price * items.quantity)
-            quantity += items.quantity
+            quantity += items.quantity  
         tax = (2 * total)/100   
         grand_total = total + tax    
     except:
