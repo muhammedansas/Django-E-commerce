@@ -52,10 +52,10 @@ class RegistrationForm(forms.ModelForm):
 class Userform(forms.ModelForm):
     class Meta:
         model = Account
-        fields = {'first_name','last_name','phone_number'}   
+        fields = ('first_name','last_name','phone_number')  
 
 class Userprofileform(forms.ModelForm):
     profile_picture = forms.ImageField(required=False,error_messages={'invalid':("Images files only")},widget=forms.FileInput)
     class Meta:
         model = Userprofile
-        fields = {'address_first','address_second','profile_picture','city','state','country'} 
+        fields = ('user','address_first','address_second','profile_picture','city','state','country') 

@@ -119,9 +119,12 @@ def edit_profile(request):
             profile_form.save()
             messages.success(request,'Your profile has been updated')
             return redirect('edit_profile')
+        else:
+            return redirect("home")
     else:
         user_form = Userform(instance=request.user)
         profile_form = Userprofileform(instance=user_profile)
+
     context = {
         'user_form':user_form,
         'profile_form':profile_form,
