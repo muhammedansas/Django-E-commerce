@@ -7,10 +7,12 @@ import datetime
 # Create your views here.
 
 def place_order(request,grand_total=0,tax=0):
+    order=None
     current_user = request.user
 
     #if the  cart count is less than or equal to 0 then redirect back to shop
     cart_items = Cartitem.objects.filter(user=current_user)
+    print(cart_items)
     cart_count = cart_items.count()
     if cart_count <= 0:
         return redirect('store')
@@ -28,6 +30,7 @@ def place_order(request,grand_total=0,tax=0):
         form = Orderform(request.POST)
         if form.is_valid():
             data = Order()
+            data.user = current_user
             data.first_name = form.cleaned_data['first_name']
             data.last_name = form.cleaned_data['last_name']
             data.phone = form.cleaned_data['phone']
@@ -43,16 +46,46 @@ def place_order(request,grand_total=0,tax=0):
             data.ip = request.META.get('REMOTE_ADDR')
             data.save()
 
+
             #generate order number
-            day = int(datetime.date.today().strftime('%D'))
-            month = int(datetime.date.today().strftime('%M'))
+            day = int(datetime.date.today().strftime('%d'))
+            month = int(datetime.date.today().strftime('%m'))   
             year = int(datetime.date.today().strftime('%Y'))
-            d = datetime.date(day,month,year)
-            current_date = d.strftime('%Y%M%D')
+            d = datetime.date(year,month,day)
+            current_date = d.strftime('%Y%m%d')
             order_number = current_date + str(data.id)
-            data.oreder_number = order_number
+            data.order_number = order_number
             data.save()
-            return redirect('checkout')
+            order = Order.objects.get(user=current_user,is_ordered=False,order_number=order_number)
+            print(order)  
+            context = {
+                "total" : total,
+                "quantity" : quantity,
+                "cart_items" : cart_items,
+                "tax" : tax,
+                "grand_total" : grand_total,
+                "form":form,
+                "order":order,
+            }        
+            return render(request,'cart_and_orders/payments.html',context)
         else:
-            return redirect('checkout')
+            return redirect('home')
+    else:
+        form = Orderform()
+          
+    print(order)    
+    context = {
+        "total" : total,
+        "quantity" : quantity,
+        "cart_items" : cart_items,
+        "tax" : tax,
+        "grand_total" : grand_total,
+        "form":form,
+        "order":order,
+    }        
+    return render(request,'cart_and_orders/checkout.html',context)    
+
+
+def payments(request):
+    return render(request,'cart_and_orders/payments.html')
         

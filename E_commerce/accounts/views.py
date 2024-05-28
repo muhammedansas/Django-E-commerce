@@ -73,7 +73,10 @@ def login(request):
                 pass    
             auth.login(request,user)
             # messages.success(request,"Your now Logged in")
-            return redirect('home')
+            if user.is_admin:
+                return redirect("admin_panel")
+            else:
+                return redirect('home')
         else:
             messages.error(request,"Invalid login")
             return redirect("login")

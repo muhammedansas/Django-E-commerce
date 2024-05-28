@@ -22,21 +22,13 @@
 </head>
 <body>
     <div class="container container-background">
-        {% if 'edit_Category' in request.path %}
-        <h1>Edit Category</h1>
-        {% else %}
         <h1>Add New Category</h1>
-        {% endif %}
-        <form method="post" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
                 {{ form.as_p }}
             </div>
-            {% if 'edit_Category' in request.path %}
-            <button type="submit" class="btn btn-primary">Edit Category</button>
-            {% else %}
             <button type="submit" class="btn btn-success">Add New Category</button>
-            {% endif %}
         </form>
     </div>
 

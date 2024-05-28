@@ -1,10 +1,11 @@
 {% extends "admin_panel/admin.html" %}
 
 {% block "admin_content" %}
-{% for i in products %}
 <div class="d-flex justify-content-center mb-3 mt-4">
     <button type="button" class="btn btn-success"><a href="{% url 'add_product' %}" class="text-white">Add New Product</a></button>            
   </div>
+{% for i in products %}
+
 <div style="margin-top:30px">
 <div style="width: 99%; box-shadow: 0px 0px 3px 3px grey; background-color: white; margin-top: 10px; display: flex; align-content: center; justify-content: space-between; border-radius: 10px; padding: 10px;">
     <div style="display: flex;">

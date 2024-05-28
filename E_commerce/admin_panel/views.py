@@ -39,6 +39,7 @@ def add_product(request):
             return redirect('admin_products')
         else:
             form = Product_update_form()
+            print("helloo patichee")
     context = {
         "form":form
     }
@@ -104,7 +105,7 @@ def delete_category(request,slug):
 def admin_userprofile(request,id):
     users = Account.objects.get(id=id)
     user = Userprofile.objects.get(user=users)
-    print(user)
+    print(user,"asdfghjk")
     context = {
         "user":user
     }

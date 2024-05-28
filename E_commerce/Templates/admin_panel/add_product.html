@@ -21,7 +21,7 @@
 <body>
     <div class="container container-background">  
         <h1>Add New Product</h1>
-        <form method="POST" action="{% url "add_product" %}">
+        <form method="POST">
             {% csrf_token %}
             <div class="form-group">
                 {{ form.as_p }}

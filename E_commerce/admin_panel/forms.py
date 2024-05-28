@@ -6,7 +6,6 @@ class Product_update_form(forms.ModelForm):
         model = Product
         fields = '__all__'
 
-
     def __init__(self,*args,**kwargs):
         super(Product_update_form,self).__init__(*args,**kwargs)
         for field in self.fields:
