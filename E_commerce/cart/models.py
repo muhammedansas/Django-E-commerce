@@ -5,7 +5,7 @@ from  accounts.models import Account
 # Create your models here.
 
 class Cart(models.Model):
-    user = models.OneToOneField()
+    cart_id = models.CharField()
     date_added = models.DateField(auto_now_add=True)
 
     def __str__(self):

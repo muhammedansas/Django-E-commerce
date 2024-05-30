@@ -17,7 +17,6 @@ def _cart_id(request):
 # @login_required(login_url='login')
 def add_cart(request,product_id):
     product = Product.objects.get(id=product_id)  # to get the product
-    print(product,'hiiiiiiii')
     try:
         cart = Cart.objects.get(cart_id = _cart_id(request))  # get the cart using the cart id present in tne session
     except Cart.DoesNotExist:
@@ -56,29 +55,22 @@ def remove_cart_item(request,product_id):
     return redirect('cart')
 
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def cart(request,total=0,quantity=0,cart_items=None,):
-    print('ppppppppppp')
     try:
         tax = 0
         grand_total = 0
         if request.user.is_authenticated:
-            print(request.user)
             cart_items = Cartitem.objects.filter(user=request.user,is_active=True)
-            print(cart_items,"this is new added")
-        else:
-            print(cart_items,"hoooooooi")   
+        else:   
             cart = Cart.objects.get(cart_id = _cart_id(request))
-            print(cart)
             cart_items = Cartitem.objects.filter(cart=cart,is_active = True)
-            print("its else case")
         for items in cart_items:
             total += (items.product.price * items.quantity)
             quantity += items.quantity  
         tax = (2 * total)/100   
         grand_total = total + tax    
-    except ObjectDoesNotExist :
-          
+    except ObjectDoesNotExist :  
         pass    # just ignore
 
     context = {

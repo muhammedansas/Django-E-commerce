@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
 from cart.models import Cartitem
 from .forms import Orderform
-from .models import Order
+from .models import Order,Payment
 import datetime
+import json
 
 # Create your views here.
 
@@ -66,7 +67,7 @@ def place_order(request,grand_total=0,tax=0):
                 "grand_total" : grand_total,
                 "form":form,
                 "order":order,
-            }        
+            }    
             return render(request,'cart_and_orders/payments.html',context)
         else:
             return redirect('home')
@@ -87,5 +88,21 @@ def place_order(request,grand_total=0,tax=0):
 
 
 def payments(request):
+    body = json.loads(request.body)
+    order = Order.objects.get(user=request.user,is_ordered=False,order_number=body['orderID'])
+    print(body)
+
+    # store payment details into payment model:
+    payment = Payment(
+        user = request.user,
+        payment_id = body['orderID'],
+        payment_method = body['payment_method'],
+        amount_paid = order.order_total,
+        status = body['status']
+    )
+    payment.save()
+    order.payment = payment
+    order.is_ordered = True
+    order.save()
     return render(request,'cart_and_orders/payments.html')
         
