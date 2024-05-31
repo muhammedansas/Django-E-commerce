@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Winkel - Free Bootstrap 4 Template by Colorlib</title>
+    <title>Vogue eCommerce Shop</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -38,11 +38,11 @@
 		    		<div class="row d-flex">
 		    			<div class="col-md pr-4 d-flex topper align-items-center">
 					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-						    <span class="text">+ 1235 2355 98</span>
+						    <span class="text">+91 9946969883</span>
 					    </div>
 					    <div class="col-md pr-4 d-flex topper align-items-center">
 					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-						    <span class="text">youremail@email.com</span>
+						    <span class="text">ansas@email.com</span>
 					    </div>
 					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
 						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
@@ -54,7 +54,7 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="{% url 'home' %}">Winkel</a>
+	      <a class="navbar-brand" href="{% url 'home' %}">Vogue</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -93,7 +93,7 @@
 			  <div class="widget-header">
 				  <small class="title text-muted">Welcome {{user.username}}</small>
 				  <div> 
-					  <a href="{% url 'edit_profile' %}">Account</a> <span class="dark-transp"> | </span>
+					  <a href="{% url 'dashboard' %}">Dashboard</a> <span class="dark-transp"> | </span>
 					  <a href="{% url 'logout' %}"> Logout</a>
 				  </div>
 			  </div>
@@ -113,7 +113,7 @@
 	          	</div>
 		          <div class="one-forth d-flex js-fullheight align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
 		          	<div class="text">
-		          		<span class="subheading">Winkel eCommerce Shop</span>
+		          		<span class="subheading">Vogue eCommerce Shop</span>
 		          		<div class="horizontal">
 		          			<h3 class="vr" style="background-image: url(images/divider.jpg);">Stablished Since 2000</h3>
 				            <h1 class="mb-4 mt-3">Catch Your Own <br><span>Stylish &amp; Look</span></h1>
@@ -133,12 +133,8 @@
     <section class="ftco-section ftco-no-pb ftco-no-pt bg-light">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-5 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/about.jpg);">
-						<a href="https://vimeo.com/45830194" class="icon popup-vimeo d-flex justify-content-center align-items-center">
-							<span class="icon-play"></span>
-						</a>
-					</div>
-					<div class="col-md-7 py-5 wrap-about pb-md-5 ftco-animate">
+					
+					<div class="col-md-12 py-5 wrap-about pb-md-5 ftco-animate">
 	          <div class="heading-section-bold mb-4 mt-md-5">
 	          	<div class="ml-md-0">
 		            <h2 class="mb-4">Better Way to Ship Your Products</h2>
@@ -299,7 +295,7 @@
             <div class="carousel-testimony owl-carousel">
               <div class="item">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url({% static 'images/bg_1.jpg' %});">
+                  <div class="user-img mb-5" style="background-image: url({% static 'images/image_4.jpg' %});">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -313,7 +309,7 @@
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_2.jpg)">
+                  <div class="user-img mb-5" style="background-image: url({% static "images/image_3.jpg" %})">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -327,7 +323,7 @@
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_3.jpg)">
+                  <div class="user-img mb-5" style="background-image: url({% static "images/image_5.jpg" %})">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -341,7 +337,7 @@
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_1.jpg)">
+                  <div class="user-img mb-5" style="background-image: url({% static "images/person_1.jpg" %})">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -355,7 +351,7 @@
               </div>
               <div class="item">
                 <div class="testimony-wrap p-4 pb-5">
-                  <div class="user-img mb-5" style="background-image: url(images/person_1.jpg)">
+                  <div class="user-img mb-5" style="background-image: url({% static "images/person_2.jpg" %})">
                     <span class="quote d-flex align-items-center justify-content-center">
                       <i class="icon-quote-left"></i>
                     </span>
@@ -388,7 +384,7 @@
         <div class="row mb-5">
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-              <h2 class="ftco-heading-2">Winkel</h2>
+              <h2 class="ftco-heading-2">Vogue</h2>
               <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>

@@ -9,33 +9,17 @@ from django.contrib.auth.password_validation import(
 )
 
 class RegistrationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput(attrs={
-        "placeholder":"Enter password",
-        "class":"form-control",
-    }))
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={
-        "placeholder":"Confirm password",
         "class":"form-control",
-    }))
-    first_name = forms.CharField(widget=forms.TextInput(attrs={
-        "placeholder":"First Name",
-        "class":"form-control"
-    }))
-    last_name = forms.CharField(widget=forms.TextInput(attrs={
-        "placeholder":"Last Name",
-        "class":'form-control'
-    }))
-    email = forms.CharField(widget=forms.EmailInput(attrs={
-        "placeholder":"Email",
-        "class":'form-control'
-    }))
-    phone_number = forms.CharField(widget=forms.NumberInput(attrs={
-        "placeholder":"Phoen number",
-        "class":'form-control',
     }))
     class Meta:
         model = Account
         fields = ['first_name','last_name','phone_number','email','password']
+
+    def __init__(self,*args,**kwargs):
+        super(RegistrationForm,self).__init__(*args,**kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class']='form-control'    
 
 
 
@@ -52,10 +36,20 @@ class RegistrationForm(forms.ModelForm):
 class Userform(forms.ModelForm):
     class Meta:
         model = Account
-        fields = ('first_name','last_name','phone_number')  
+        fields = ('first_name','last_name','phone_number') 
+
+    def __init__(self,*args,**kwargs):
+        super(Userform,self).__init__(*args,**kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class']='form-control'     
 
 class Userprofileform(forms.ModelForm):
     profile_picture = forms.ImageField(required=False,error_messages={'invalid':("Images files only")},widget=forms.FileInput)
     class Meta:
         model = Userprofile
         fields = ('user','address_first','address_second','profile_picture','city','state','country') 
+
+    def __init__(self,*args,**kwargs):
+        super(Userprofileform,self).__init__(*args,**kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class']='form-control'    
