@@ -59,7 +59,7 @@ def login(request):
         password = request.POST["password"]
         print(email,password)
         user = auth.authenticate(request,email=email,password=password)
-        
+        print(user)
         if user is not None:
             try:
                 cart = Cart.objects.get(cart_id=_cart_id(request))
