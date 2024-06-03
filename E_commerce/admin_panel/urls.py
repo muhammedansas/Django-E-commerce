@@ -14,4 +14,5 @@ urlpatterns = [
     path("<str:slug>/delete_category/",views.delete_category,name="delete_category"),
     path('<int:id>/admin_userprofile/',views.admin_userprofile,name='admin_userprofile'),
     path('<int:id>/edit_product/',views.edit_product,name='edit_product'),
+    path('admin_orders/',views.admin_orders,name='admin_orders'),
 ]

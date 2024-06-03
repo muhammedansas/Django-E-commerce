@@ -18,7 +18,7 @@ def dashboard(request):
     }
     return render(request,"Home/dashboard.html",context)
 
-def orders(request):
+def orders(request):    
     orders = Order.objects.filter(user = request.user,is_ordered = True).order_by()
     context = {"orders":orders}
     return render(request,"Home/orders.html",context)

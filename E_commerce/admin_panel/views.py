@@ -4,6 +4,7 @@ from store.models import Product
 from products_category.models import catogary
 from . forms import Product_update_form,Category_update_form
 from django.contrib import messages
+from orders.models import Order
 # Create your views here.
 
 def admin_panel(request):
@@ -110,3 +111,8 @@ def admin_userprofile(request,id):
         "user":user
     }
     return render(request,"admin_panel/admin_userprofile.html",context)
+
+def admin_orders(request):
+    orders = Order.objects.filter(is_ordered=True).order_by()
+    context={"orders":orders}
+    return render(request,"admin_panel/admin_orders.html",context)
