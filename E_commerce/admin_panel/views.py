@@ -12,11 +12,28 @@ def admin_panel(request):
     return render(request,'admin_panel/admin.html') 
 
 def admin_users(request):
-    users = Account.objects.all()
+    users = Account.objects.all().order_by()
     context={
         "users":users
     }
     return render(request,"admin_panel/admin_users.html",context)
+
+def block_user(request,id):
+    block_user = Account.objects.get(id=id)
+    if block_user.is_superadmin:
+        messages.error(request, "Cannot block super admin.")
+    elif block_user.is_staff and block_user == request.user:
+        messages.error(request, "Cannot block yourself.")
+    else:
+        if block_user.is_blocked:
+            block_user.is_blocked = False
+            messages.success(request, f"{block_user.full_name()} has been unblocked.")
+            block_user.save()
+        else:
+            block_user.is_blocked = True
+            messages.success(request, f"{block_user.full_name()} has been blocked.")
+            block_user.save()
+    return redirect("admin_users")
 
 def admin_category(request):
     categories = catogary.objects.all().order_by("id")
@@ -32,7 +49,7 @@ def admin_products(request):
     return render(request,"admin_panel/admin_products.html",context)
 
 def add_product(request):
-    form = None
+    form = Product_update_form()
     if request.method =="POST":
         form = Product_update_form(request.POST, request.FILES)
         if form.is_valid():
@@ -40,7 +57,6 @@ def add_product(request):
             return redirect('admin_products')
         else:
             form = Product_update_form()
-            print("helloo patichee")
     context = {
         "form":form
     }
@@ -75,7 +91,7 @@ def admin_category(request):
 
 def add_category(request):
     if request.method == "POST":
-        form = Category_update_form(request.POST)
+        form = Category_update_form(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect("admin_category")

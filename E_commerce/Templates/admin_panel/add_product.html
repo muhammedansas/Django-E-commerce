@@ -21,10 +21,15 @@
 <body>
     <div class="container container-background">  
         <h1>Add New Product</h1>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
                 {{ form.as_p }}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
             </div>
             <button type="submit" class="btn btn-success">Add New Product</button>
             
