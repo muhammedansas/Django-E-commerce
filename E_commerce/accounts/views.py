@@ -75,6 +75,9 @@ def login(request):
         print(user)
         if user is not None:
             try:
+                if user.is_blocked:
+                    messages.error(request,"This user is blocked please unblock")
+                    return redirect('login')
                 cart = Cart.objects.get(cart_id=_cart_id(request))
                 cartitem_exists = Cartitem.objects.filter(cart=cart).exists()
                 if cartitem_exists:

@@ -38,6 +38,7 @@ def add_cart(request,product_id):
         cart_item.save()
     return redirect('cart')
 
+@login_required(login_url='login')
 def decrease_item(request,product_id):
     cart = Cart.objects.get(cart_id=_cart_id(request))
     product = get_object_or_404(Product, id = product_id)
@@ -47,6 +48,7 @@ def decrease_item(request,product_id):
         cart_item.save()    
     return redirect('cart')
 
+@login_required(login_url='login')
 def remove_cart_item(request,product_id):
     cart = Cart.objects.get(cart_id=_cart_id(request))
     product = get_object_or_404(Product,id=product_id)  
