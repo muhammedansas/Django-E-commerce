@@ -69,9 +69,9 @@
 				{% endfor %} 
               </div>
             </li>
-	          <li class="nav-item"><a href="" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="" class="nav-link">Contact</a></li>
+	          <li class="nav-item"><a href="{% url "about" %}" class="nav-link">About</a></li>
+	          <li class="nav-item"><a href="{% url "blog" %}" class="nav-link">Blog</a></li>
+	          <li class="nav-item"><a href="{% url "contact" %}" class="nav-link">Contact</a></li>
 	          <li class="nav-item cta cta-colored"><a href="{% url 'cart' %}" class="nav-link"><span class="icon-shopping_cart"></span>[{{cart_count}}]</a></li>
 
 	        </ul>
