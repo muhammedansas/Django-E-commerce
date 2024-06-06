@@ -4,6 +4,7 @@ from .forms import Orderform
 from .models import Order,Payment
 import datetime
 import json
+from django.contrib import messages
 
 # Create your views here.
 
@@ -104,5 +105,6 @@ def payments(request):
     order.payment = payment
     order.is_ordered = True
     order.save()
+    messages.success(request,"Payment was success")
     return render(request,'cart_and_orders/payments.html')
         

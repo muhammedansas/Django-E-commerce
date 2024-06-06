@@ -11,6 +11,9 @@ def admin_panel(request):
   
     return render(request,'admin_panel/admin.html') 
 
+def admin_dashboard(request):
+    return render(request,'admin_panel/admin_dashboard.html')
+
 def admin_users(request):
     users = Account.objects.all().order_by()
     context={

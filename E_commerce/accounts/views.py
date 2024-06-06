@@ -17,8 +17,9 @@ from django.core.mail import EmailMessage
 
 # Create your views here.
 
+
+
 def register(request):
-    form = None
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -28,30 +29,42 @@ def register(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             username = email.split("@")[0]
-            user = Account.objects.create_user(first_name=first_name,last_name=last_name,email=email,password=password,username=username)
-            user.phone_number=phone_number
+            user = Account.objects.create_user(
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                password=password,
+                username=username
+            )
+            user.phone_number = phone_number
             user.save()
-
-            #User activation
-            current_site = get_current_site(request)
-            mail_subject = "Please activate your account"
-            message = render_to_string('accounts/verification_email.html',{
-                'user':user,
-                'domain':current_site,
-                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-                'token':default_token_generator.make_token(user),
-            })
-            to_email = email
-            send_email = EmailMessage(mail_subject,message,to=[to_email])
-            send_email.send()
-
-            messages.success(request,"Registration successfull")
-            return redirect("register")   
-    form = RegistrationForm()
+            
+            # User activation
+            try:
+                current_site = get_current_site(request)
+                mail_subject = "Please activate your account"
+                message = render_to_string('accounts/verification_email.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': default_token_generator.make_token(user),
+                })
+                to_email = email
+                send_email = EmailMessage(mail_subject, message, to=[to_email])
+                send_email.send()
+                messages.success(request, "Registration successful. Please check your email to activate your account.")
+                return redirect("register")
+            except Exception as e:
+                print(f"Error sending email: {e}")
+                messages.error(request, "There was an error sending the activation email. Please try again.")
+    
+    else:
+        form = RegistrationForm()
+    
     context = {
-        'form':form
+        'form': form
     }
-    return render(request,"accounts/register.html",context)
+    return render(request, "accounts/register.html", context)
 
 def login(request):
     if request.method == "POST":
@@ -72,7 +85,6 @@ def login(request):
             except:
                 pass    
             auth.login(request,user)
-            # messages.success(request,"Your now Logged in")
             if user.is_admin:
                 return redirect("admin_panel")
             else:

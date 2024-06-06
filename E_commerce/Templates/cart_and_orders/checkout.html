@@ -6,7 +6,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Checkout</span></p>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="">Home</a></span> <span>Checkout</span></p>
             <h1 class="mb-0 bread">Checkout</h1>
           </div>
         </div>
@@ -16,7 +16,7 @@
     <section class="ftco-section">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-xl-8 ftco-animate">
+          <div class="col-xl-8">
 						<form action="{% url 'place_order' %}" class="billing-form" method='POST'>
 							{% csrf_token %}
 							<h3 class="mb-4 billing-heading">Billing Details</h3>
@@ -113,20 +113,6 @@
 	          	<div class="col-md-6">
 	          		<div class="cart-detail bg-light p-3 p-md-4">
 	          			<h3 class="billing-heading mb-4">Payment Method</h3>
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Direct Bank Tranfer</label>
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="radio">
-											   <label><input type="radio" name="optradio" class="mr-2"> Check Payment</label>
-											</div>
-										</div>
-									</div>
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">

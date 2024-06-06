@@ -1,6 +1,5 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from . models import Product
-from cart.models import Cartitem
 from products_category.models import catogary
 
 # Create your views here.

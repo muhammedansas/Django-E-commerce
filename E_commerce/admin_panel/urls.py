@@ -16,4 +16,5 @@ urlpatterns = [
     path('<int:id>/admin_userprofile/',views.admin_userprofile,name='admin_userprofile'),
     path('<int:id>/edit_product/',views.edit_product,name='edit_product'),
     path('admin_orders/',views.admin_orders,name='admin_orders'),
+    path('admin_dashboard/',views.admin_dashboard,name='admin_dashboard'),
 ]

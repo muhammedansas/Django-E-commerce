@@ -5,8 +5,7 @@
     <title>Winkel - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="{% static 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' %}" rel="stylesheet">
+     
 
     <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
@@ -16,9 +15,8 @@
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/aos.css' %}">
-
     <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
-	<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+	  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
     <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
@@ -27,7 +25,6 @@
     <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
 
   </head>
   <body class="goto-here">
@@ -106,13 +103,62 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">CHECKOUT</a></span> <span>PAYMENTS</span></p>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="">CHECKOUT</a></span> <span>PAYMENTS</span></p>
             <h1 class="mb-0 bread">PAYMENTS</h1>
           </div>
         </div>
       </div>
     </div>
-
+    <div class="card">
+      <div class="card-body">
+      </br>
+    </br>
+        <div class="row justify-content-center">
+        <h5 class="card-title">Review products</h5>
+        </div>
+        <table class="table">
+          <thead class="thead-primary">
+            <tr class="text-center">
+              <th>&nbsp;</th>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+                        {% for items in cart_items %} 
+            <tr class="text-center">
+              <td class="image-prod">
+                              <div class="aside">
+                                  <img src="{{ items.product.image.url }}" class="img-sm" style="width: 100px; height: auto;">
+                              </div>
+                          </td>
+              <td class="product-name">
+                <h3>{{items.product.product_name}}</h3>
+                <p>{{items.product.description}}</p>
+              </td>
+              
+              <td class="price">${{items.product.price}}</td>
+              
+                          <td> 
+                              <div class="col"> 
+                                  <div >
+                                     
+                                       {{items.quantity}}
+                                      
+                                   </div>
+</div> <!-- col.// -->
+                              
+                          </td>   
+              
+              <td class="total">${{items.sub_total}}</td>
+            </tr><!-- END TR-->
+                        {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
     <section class="ftco-section ftco-cart">
     		<div class="row justify-content-center">
     			<div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
@@ -128,76 +174,17 @@
                           {% if order.order_note %}
                           <b>Order note:</b> {{order.order_note}}
                           {% endif %}
-                          <button type="button" class="btn btn-primary" data-mdb-ripple-init>Button</button>
-                        </div>
-                      </div>
-                      <div class="card">
-                        <div class="card-body">
+                        </br>
+                        </br>
                           <h5 class="card-title">Payment method</h5>
-                          <p class="card-text">Payment</p>
-                          <button type="button" class="btn btn-primary" data-mdb-ripple-init>Button</button>
+                          <p class="card-text">Paypal</p>
                         </div>
                       </div>
-                      <div class="card">
-                        <div class="card-body">
-                          <h5 class="card-title">Review products</h5>
-                          <table class="table">
-                            <thead class="thead-primary">
-                              <tr class="text-center">
-                                <th>&nbsp;</th>
-                                <th>&nbsp;</th>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                          {% for items in cart_items %} 
-                              <tr class="text-center">
-                                <td class="product-remove"><a href="{% url 'remove_cart_item' items.product.id %}"><span class="ion-ios-close"></span></a></td>
-                                <td class="image-prod">
-                                                <div class="aside">
-                                                    <img src="{{ items.product.image.url }}" class="img-sm" style="width: 100px; height: auto;">
-                                                </div>
-                                            </td>
-                                <td class="product-name">
-                                  <h3>Young Woman Wearing Dress</h3>
-                                  <p>Far far away, behind the word mountains, far from the countries</p>
-                                </td>
-                                
-                                <td class="price">${{items.product.price}}</td>
-                                
-                                            <td> 
-                                                <div class="col"> 
-                                                    <div >
-                                                        <span class="input-group-btn mr-2">
-                                                           <a href="{% url 'decrease_item' items.product.id %}"><button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
-                                                            <i class="ion-ios-remove"></i>
-                                                           </button>
-                                                        </a>
-                                                         </span>
-                                                         <input type="text" class="form-control"  value="{{items.quantity}}">
-                                                        <span class="input-group-btn ml-2">
-                                                           <a href="{% url 'add_cart' items.product.id %}"><button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-                                                              <i class="ion-ios-add"></i>
-                                                          </button>
-                                                        </a>
-                                                        </span>
-                                                     </div>
-            </div> <!-- col.// -->
-                                                
-                                            </td>   
-                                
-                                <td class="total">${{items.sub_total}}</td>
-                              </tr><!-- END TR-->
-                                          {% endfor %}
-                            </tbody>
-                          </table>
-                        
-                          <button type="button" class="btn btn-primary" data-mdb-ripple-init>Button</button>
-                        </div>
-                      </div>
+                      
+                          
+                          
+
+                      
     				<div class="cart-total mb-3">
     					<h3>Cart Totals</h3>
     					<p class="d-flex">
@@ -292,7 +279,7 @@
       <div class="col-md-12 text-center">
 
         <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-          Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="{% static 'https://colorlib.com' %}" target="_blank">Colorlib</a>
+          Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a  target="_blank">Colorlib</a>
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         </p>
       </div>
