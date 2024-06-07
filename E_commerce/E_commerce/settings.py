@@ -38,10 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'products_category',
     'store',
     'cart',
     'accounts',
+    'products_category',
     'orders', 
     'admin_panel', 
 ]
@@ -86,8 +86,12 @@ AUTH_USER_MODEL = 'accounts.Account'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase'
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'vogue',
+        'USER': config("POSTGRESPASSWORD"),
+        'PASSWORD': 'e_user123',
+        'HOST': 'localhost',
+        'PORT': '5432',    
     }
 }
 
