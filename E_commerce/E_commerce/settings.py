@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 from decouple import config
 
@@ -131,12 +132,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/staticfiles/'
 STATICFILES_DIRS = [
-    BASE_DIR/ 'static',
+    os.path.join(BASE_DIR,'static')
 ]
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -174,3 +174,4 @@ AWS_S3_FILE_OVERWRITE = config('AWS_S3_FILE_OVERWRITE')
 AWS_DEFAULT_ACL =  config('AWS_DEFAULT_ACL')
 AWS_S3_VERITY = config('AWS_S3_VERITY')
 DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
