@@ -1,7 +1,7 @@
 from django.contrib import admin
 from . models import Product
 
-# Register your models here.
+# Register your models her
 
 class Product_Admin(admin.ModelAdmin):
     list_display = ('product_name','stock','price','product_category','modified_date','is_available')
