@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
-import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,7 +34,6 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'whitenoise.runserver_nostatic',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -51,7 +49,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -91,7 +88,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'vogue',
-        'USER': config("POSTGRESPASSWORD"),
+        'USER': config("POSTGRESUSER"),
         'PASSWORD': 'e_user123',
         'HOST': 'localhost',
         'PORT': '5432',    
@@ -136,15 +133,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 
-# STATIC_URL = 'static/'
-# STATICFILES_DIRS = [
-#     BASE_DIR/ 'static',
-# ]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIR = [
-os.path.join(BASE_DIR, 'static')
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR/ 'static',
 ]
+
+
 
 
 # Default primary key field type
@@ -169,7 +163,7 @@ MESSAGE_TAGS = {
 #SMTP configuration 
 EMAIL_BACKEND = config('EMAIL_BACKEND')
 EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
@@ -183,4 +177,3 @@ AWS_S3_FILE_OVERWRITE = config('AWS_S3_FILE_OVERWRITE')
 AWS_DEFAULT_ACL =  config('AWS_DEFAULT_ACL')
 AWS_S3_VERITY = config('AWS_S3_VERITY')
 DEFAULT_FILE_STORAGE = config('DEFAULT_FILE_STORAGE')
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
