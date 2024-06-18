@@ -207,4 +207,4 @@ def resetpassword(request):
             messages.error(request,'Password does not match') 
             return redirect('resetpassword')
     
-    return render(request,'accounts/resetpassword.html')    
+    return render(request,'accounts/resetpassword.html')      
