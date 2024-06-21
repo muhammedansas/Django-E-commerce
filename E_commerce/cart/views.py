@@ -12,7 +12,6 @@ def _cart_id(request):
         cart = f"{request.user}.{request.user.id}"  
     return cart
 
-
 @login_required(login_url='login')
 def add_cart(request,product_id):
     product = Product.objects.get(id=product_id)  # to get the product
