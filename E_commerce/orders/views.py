@@ -93,6 +93,7 @@ def payments(request):
     order = Order.objects.get(user=request.user,is_ordered=False,order_number=body['orderID'])
     print(body)
 
+
     # store payment details into payment model:
     payment = Payment(
         user = request.user,
