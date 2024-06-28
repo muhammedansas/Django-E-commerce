@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from cart.views import _cart_id
 from django.http import HttpResponse
 
+
 #verification email
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
