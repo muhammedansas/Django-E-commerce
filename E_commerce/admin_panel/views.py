@@ -8,18 +8,13 @@ from orders.models import Order
 # Create your views here.
 
 def admin_panel(request):
-  
-    return render(request,'admin_panel/admin.html') 
-
-def admin_dashboard(request):
-    return render(request,'admin_panel/admin_dashboard.html')
-
-def admin_users(request):
     users = Account.objects.all().order_by()
     context={
         "users":users
     }
-    return render(request,"admin_panel/admin_users.html",context)
+    return render(request,'admin_panel/admin.html',context) 
+
+
 
 def block_user(request,id):
     block_user = Account.objects.get(id=id)
@@ -36,7 +31,7 @@ def block_user(request,id):
             block_user.is_blocked = True
             messages.success(request, f"{block_user.full_name()} has been blocked.")
             block_user.save()
-    return redirect("admin_users")
+    return redirect("admin_panel")
 
 def admin_category(request):
     categories = catogary.objects.all().order_by("id")
