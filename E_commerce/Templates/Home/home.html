@@ -40,7 +40,7 @@
 					    </div>
 					    <div class="col-md pr-4 d-flex topper align-items-center">
 					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-						    <span class="text">ansas@email.com</span>
+						    <span class="text">Vogue@email.com</span>
 					    </div>
 					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
 						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
@@ -78,7 +78,7 @@
 		  <div class="d-flex justify-content-end mb-3 mb-lg-0">
 			  <div class="widget-header">
 				  <div> 
-					  <a href="{% url 'login' %}">login</a> <span class="dark-transp"> | </span>
+					  <a href="{% url 'login' %}">Login</a> <span class="dark-transp"> | </span>
 					  <a href="{% url 'register' %}"> Register</a>
 				  </div>
 				{% elif user.is_staff %}
@@ -199,41 +199,44 @@
     </section>
 
     <section class="ftco-section bg-light">
-    	<div class="container">
-				<div class="row justify-content-center mb-3 pb-3">
-          <div class="col-md-12 heading-section text-center ftco-animate">
-            <h2 class="mb-4">Products</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-          </div>
-        </div>   		
-    	</div>
-    	<div class="container">
+		<div class="container">
+			<div class="row justify-content-center mb-3 pb-3">
+				<div class="col-md-12 heading-section text-center ftco-animate">
+					<h2 class="mb-4">Products</h2>
+					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+				</div>
+			</div>       
+		</div>
+		<div class="container">
 			<div class="row">
 				{% for i in products %}
-    			<div class="col-sm col-md-6 col-lg ftco-animate">
-    				<div class="product">
-    					<a href="{{i.get_url}}" class="	img-prod"><img class="img-fluid" src={{i.image.url}} alt="Product image">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 px-3 d-flex">
-    						<h3><a href="./product-detail.html">{{i.product_name}}</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>${{i.price}}</span></p>
-		    					</div>
-		
-	    					</div>
-    						<p class="bottom-area d-flex px-3">
-    							<a href="{{i.get_url}}" class="add-to-cart text-center py-2 mr-1"><span>View</span></a>
-    							<a href="#" class="buy-now text-center py-2">Buy now<span><i class="ion-ios-cart ml-1"></i></span></a>
-    						</p>
-    					</div>
-    				</div>
-    			</div>
+				<div class="col-sm-6 col-md-4 col-lg-3 ftco-animate mb-4">
+					<div class="product h-100 d-flex flex-column justify-content-between shadow-sm p-3 rounded" style="background-color: #fff;">
+						<a href="{{i.get_url}}" class="img-prod d-block mb-3">
+							<img class="img-fluid" src="{{i.image.url}}" alt="Product image" style="height: 250px; width: 100%; object-fit: cover; border-radius: 10px;">
+							<div class="overlay"></div>
+						</a>
+						<div class="text d-flex flex-column flex-grow-1">
+							<h3 class="mb-3 text-center" style="font-weight: 600;"><a href="{{i.get_url}}" style="color: #333;">{{i.product_name}}</a></h3>
+							<div class="pricing mb-3 text-center">
+								<p class="price" style="font-size: 1.2em; color: #e3342f;"><span>${{i.price}}</span></p>
+							</div>
+							<div class="bottom-area d-flex justify-content-between mt-auto">
+								<a href="{{i.get_url}}" class="add-to-cart text-center py-1 px-2" style="flex: 1; margin-right: 5px; border-radius: 5px; color:black; background-color: #f8f9fa; border: 1px solid #dee2e6; font-size: 0.9em;">
+									View
+								</a>
+								<a href="#" class="buy-now text-center py-1 px-2" style="flex: 1; border-radius: 5px; background-color: #007bff; color: white; border: 1px solid #007bff; font-size: 0.9em;">
+									Buy Now<span><i class="ion-ios-cart ml-1"></i></span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
 				{% endfor %}
-    		</div>
-    	</div>
-    </section>
+			</div>
+		</div>
+	</section>
+	
 
     <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url({% static 'images/bg_4.jpg' %});">
     	<div class="container">
@@ -371,11 +374,7 @@
     <footer class="ftco-footer bg-light ftco-section">
       <div class="container">
       	<div class="row">
-      		<div class="mouse">
-						<a href="#" class="mouse-icon">
-							<div class="mouse-wheel"><span class="ion-ios-arrow-up"></span></div>
-						</a>
-					</div>
+      		
       	</div>
         <div class="row mb-5">
           <div class="col-md">
